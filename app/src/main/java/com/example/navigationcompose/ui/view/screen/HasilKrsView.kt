@@ -10,5 +10,7 @@ fun HasilKrsView(
     rencanaStudi: RencanaStudi,
     onBackToFormClicked: () -> Unit,
     onFinishClicked: () -> Unit
-){}
+){
+
+}
 
