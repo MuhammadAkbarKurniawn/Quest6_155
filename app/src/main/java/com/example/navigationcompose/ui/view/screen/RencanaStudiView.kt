@@ -2,6 +2,7 @@ package com.example.navigationcompose.ui.view.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.navigationcompose.R
 import com.example.navigationcompose.data.MataKuliah
+import com.example.navigationcompose.data.RuangKelas
 import com.example.navigationcompose.model.Mahasiswa
 import com.example.navigationcompose.ui.widget.DynamicSelectedField
 
@@ -36,7 +42,7 @@ import com.example.navigationcompose.ui.widget.DynamicSelectedField
 fun RencanaStudiView(
     mahasiswa: Mahasiswa,
     OnSubmitButtonClicked: (MutableList<String>) -> Unit,
-    OnBackButtinClicked: () ->Unit,
+    OnBackButtonClicked: () ->Unit,
 ){
     var chosenDropdown by remember { mutableStateOf("") }
     var checked by remember { mutableStateOf(false) }
@@ -96,7 +102,7 @@ fun RencanaStudiView(
                ){
                    Text(text = "Pilih MataKuliah Peminatan", fontWeight = FontWeight.Bold)
                    Text(text = "Silahkan pilih MataKuliah yang anda inginkan",
-                       fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                       fontSize = 12.sp, fontWeight = FontWeight.Light)
 
                    Spacer(modifier = Modifier.padding(8.dp))
 
@@ -110,8 +116,60 @@ fun RencanaStudiView(
                    )
 
                    Spacer(modifier = Modifier.padding(8.dp))
+                   HorizontalDivider()
+                   Spacer(modifier = Modifier.padding(8.dp))
 
+                   Text(text = "Pilih Kelas Belajar", fontWeight = FontWeight.Bold)
+                   Text(
+                       text = "Silahkan pilih kelas dari Matakuliah yang anda inginkan",
+                       fontSize = 12.sp,
+                       fontWeight = FontWeight.Light
+                   )
+                   Spacer(modifier = Modifier.padding(8.dp))
 
+                   Row (
+                       modifier = Modifier.fillMaxWidth(),
+                       horizontalArrangement = Arrangement.SpaceEvenly
+                   ){
+                       RuangKelas.kelas.forEach { data ->
+                           Row (verticalAlignment = Alignment.CenterVertically){
+                               RadioButton(
+                                   selected = pilihanKelas == data,
+                                   onClick = {pilihanKelas = data}
+                               )
+                               Text(data)
+                           }
+                       }
+                   }
+                   Spacer(modifier = Modifier.padding(8.dp))
+                   HorizontalDivider()
+                   Spacer(modifier = Modifier.padding(8.dp))
+
+                   Text(text = "Klausul Persetujuan Mahasiswa", fontWeight = FontWeight.Bold)
+                   Row (verticalAlignment = Alignment.CenterVertically){
+                       Checkbox(
+                           checked = checked,
+                           onCheckedChange = {checked = it},
+                           enabled = chosenDropdown.isNotBlank() && pilihanKelas.isNotBlank()
+                       )
+                       Text(
+                           text = "Saya menyetujui setiap pernyataan yang ada tanpa ada paksaan dari pihak manapun.",
+                           fontWeight = FontWeight.Light, fontSize = 10.sp
+                       )
+                   }
+
+                   Spacer(modifier = Modifier.padding(8.dp))
+                   Row (
+                       modifier = Modifier.fillMaxWidth(),
+                       horizontalArrangement = Arrangement.SpaceEvenly
+                   ){
+                       Button(onClick = {OnBackButtonClicked()}) {
+                           Text(text = "Kembali")
+                       }
+                       Button(onClick = {OnSubmitButtonClicked(listData)}, enabled = checked) {
+                           Text(text = "Lanjut")
+                       }
+                   }
                }
             }
         }
