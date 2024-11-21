@@ -1,6 +1,7 @@
 package com.example.navigationcompose.ui.widget
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -44,5 +45,17 @@ fun DynamicSelectedField(
                 .menuAnchor()
                 .fillMaxWidth()
         )
+
+        ExposedDropdownMenu(expanded = expanded, onDismissRequest = {expanded = false}) {
+            option.forEach{option:String ->
+                DropdownMenuItem(
+                    text = { Text(text = option) },
+                    onClick = {
+                        expanded = false
+                        onValueChangeEvent(option)
+                    }
+                )
+            }
+        }
     }
 }
