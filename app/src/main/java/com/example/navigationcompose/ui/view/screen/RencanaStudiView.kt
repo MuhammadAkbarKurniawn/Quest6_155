@@ -13,9 +13,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -84,93 +87,103 @@ fun RencanaStudiView(
                     color = Color.White
                 )
             }
-            Box(
-                modifier = Modifier
-                    .background(
-                        color = Color.White,
-                        shape = RoundedCornerShape(
-                            topEnd = 15.dp,
-                            topStart = 15.dp
-                        )
+            Box{
+                Icon(imageVector = Icons.Filled.Notifications,
+                    contentDescription = "",
+                    tint = Color.White
                     )
-                    .fillMaxSize(),
-            ) {
-               Column (
-                   modifier = Modifier
-                       .fillMaxSize()
-                       .padding(16.dp)
-               ){
-                   Text(text = "Pilih MataKuliah Peminatan", fontWeight = FontWeight.Bold)
-                   Text(text = "Silahkan pilih MataKuliah yang anda inginkan",
-                       fontSize = 12.sp, fontWeight = FontWeight.Light)
+            }
 
-                   Spacer(modifier = Modifier.padding(8.dp))
+        }
+        Box(
+            modifier = Modifier
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(
+                        topEnd = 15.dp,
+                        topStart = 15.dp
+                    )
+                )
+                .fillMaxSize(),
+        ) {
+            Column (
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ){
+                Text(text = "Pilih MataKuliah Peminatan", fontWeight = FontWeight.Bold)
+                Text(text = "Silahkan pilih MataKuliah yang anda inginkan",
+                    fontSize = 12.sp, fontWeight = FontWeight.Light)
 
-                   DynamicSelectedField(
-                       selectedvalue = chosenDropdown,
-                       option = MataKuliah.option,
-                       label = "Mata Kuliah",
-                       onValueChangeEvent = {
-                           chosenDropdown = it
-                       }
-                   )
+                Spacer(modifier = Modifier.padding(8.dp))
 
-                   Spacer(modifier = Modifier.padding(8.dp))
-                   HorizontalDivider()
-                   Spacer(modifier = Modifier.padding(8.dp))
+                DynamicSelectedField(
+                    selectedvalue = chosenDropdown,
+                    option = MataKuliah.option,
+                    label = "Mata Kuliah",
+                    onValueChangeEvent = {
+                        chosenDropdown = it
+                    }
+                )
 
-                   Text(text = "Pilih Kelas Belajar", fontWeight = FontWeight.Bold)
-                   Text(
-                       text = "Silahkan pilih kelas dari Matakuliah yang anda inginkan",
-                       fontSize = 12.sp,
-                       fontWeight = FontWeight.Light
-                   )
-                   Spacer(modifier = Modifier.padding(8.dp))
+                Spacer(modifier = Modifier.padding(8.dp))
+                HorizontalDivider()
+                Spacer(modifier = Modifier.padding(8.dp))
 
-                   Row (
-                       modifier = Modifier.fillMaxWidth(),
-                       horizontalArrangement = Arrangement.SpaceEvenly
-                   ){
-                       RuangKelas.kelas.forEach { data ->
-                           Row (verticalAlignment = Alignment.CenterVertically){
-                               RadioButton(
-                                   selected = pilihanKelas == data,
-                                   onClick = {pilihanKelas = data}
-                               )
-                               Text(data)
-                           }
-                       }
-                   }
-                   Spacer(modifier = Modifier.padding(8.dp))
-                   HorizontalDivider()
-                   Spacer(modifier = Modifier.padding(8.dp))
+                Text(text = "Pilih Kelas Belajar", fontWeight = FontWeight.Bold)
+                Text(
+                    text = "Silahkan pilih kelas dari Matakuliah yang anda inginkan",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Light
+                )
+                Spacer(modifier = Modifier.padding(8.dp))
 
-                   Text(text = "Klausul Persetujuan Mahasiswa", fontWeight = FontWeight.Bold)
-                   Row (verticalAlignment = Alignment.CenterVertically){
-                       Checkbox(
-                           checked = checked,
-                           onCheckedChange = {checked = it},
-                           enabled = chosenDropdown.isNotBlank() && pilihanKelas.isNotBlank()
-                       )
-                       Text(
-                           text = "Saya menyetujui setiap pernyataan yang ada tanpa ada paksaan dari pihak manapun.",
-                           fontWeight = FontWeight.Light, fontSize = 10.sp
-                       )
-                   }
+                Row (
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ){
+                    RuangKelas.kelas.forEach { data ->
+                        Row (verticalAlignment = Alignment.CenterVertically){
+                            RadioButton(
+                                selected = pilihanKelas == data,
+                                onClick = {pilihanKelas = data}
+                            )
+                            Text(data)
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.padding(8.dp))
+                HorizontalDivider()
+                Spacer(modifier = Modifier.padding(8.dp))
 
-                   Spacer(modifier = Modifier.padding(8.dp))
-                   Row (
-                       modifier = Modifier.fillMaxWidth(),
-                       horizontalArrangement = Arrangement.SpaceEvenly
-                   ){
-                       Button(onClick = {OnBackButtonClicked()}) {
-                           Text(text = "Kembali")
-                       }
-                       Button(onClick = {OnSubmitButtonClicked(listData)}, enabled = checked) {
-                           Text(text = "Lanjut")
-                       }
-                   }
-               }
+                Text(text = "Klausul Persetujuan Mahasiswa", fontWeight = FontWeight.Bold)
+                Row (verticalAlignment = Alignment.CenterVertically){
+                    Checkbox(
+                        checked = checked,
+                        onCheckedChange = {checked = it},
+                        enabled = chosenDropdown.isNotBlank() && pilihanKelas.isNotBlank()
+                    )
+                    Text(
+                        text = "Saya menyetujui setiap pernyataan yang ada tanpa ada paksaan dari pihak manapun.",
+                        fontWeight = FontWeight.Light, fontSize = 10.sp
+                    )
+                }
+
+                Spacer(modifier = Modifier.padding(8.dp))
+                Row (
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ){
+                    Button(onClick = {OnBackButtonClicked()}) {
+                        Text(text = "Kembali")
+                    }
+                    Button(
+                        onClick = { OnSubmitButtonClicked(listData) },
+                        enabled = checked && chosenDropdown.isNotBlank() && pilihanKelas.isNotBlank()
+                    ) {
+                        Text(text = "Lanjut")
+                    }
+                }
             }
         }
     }
