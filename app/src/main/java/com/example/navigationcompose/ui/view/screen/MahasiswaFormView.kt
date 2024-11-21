@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.navigationcompose.R
 
-@Preview(showBackground = true)
+
 @Composable
 fun MahasiswaFormView(
     onSubmitButton: (MutableList<String>) -> Unit,
@@ -47,7 +47,7 @@ fun MahasiswaFormView(
     var nim by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
 
-    var ListData: MutableList<String> = mutableListOf(nim,nama,email)
+    var listData: MutableList<String> = mutableListOf(nim,nama,email)
 
     Column (modifier = Modifier
         .fillMaxSize()
@@ -163,11 +163,11 @@ fun MahasiswaFormView(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ){
-                    Button(onClick = {onBackButtonClicked}){
+                    Button(onClick = {onBackButtonClicked()}){
                         Text(text = "Kembali")
                     }
 
-                    Button(onClick = {onSubmitButton}) {
+                    Button(onClick = {onSubmitButton(listData)}) {
                         Text(text = "Simpan")
                     }
                 }
