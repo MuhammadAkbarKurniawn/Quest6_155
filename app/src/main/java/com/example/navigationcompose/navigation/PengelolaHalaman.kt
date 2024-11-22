@@ -1,5 +1,6 @@
 package com.example.navigationcompose.navigation
 
+import HasilKrsView
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -12,7 +13,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.navigationcompose.model.RencanaStudiViewModel
-import com.example.navigationcompose.ui.view.screen.HasilKrsView
 import com.example.navigationcompose.ui.view.screen.MahasiswaFormView
 import com.example.navigationcompose.ui.view.screen.RencanaStudiView
 import com.example.navigationcompose.ui.view.screen.SplashView
@@ -70,9 +70,9 @@ fun MahasiswaApp(
         composable(route = Halaman.Tampil.name){
             HasilKrsView(
                 mahasiswa = mahasiswaUiState,
-                rencanaStudi = krsState,
-                onBackToFormClicked = { navController.navigate(Halaman.Matakuliah.name) },
-                onFinishClicked = {
+                krs = krsState,
+                onBackButtonClicked = { navController.popBackStack() },
+                onFinishButtonClicked = {
                     navController.navigate(Halaman.Splash.name) {
                         popUpTo(0)
                     }

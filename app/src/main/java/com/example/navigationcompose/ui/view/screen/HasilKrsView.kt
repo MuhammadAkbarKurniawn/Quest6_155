@@ -1,14 +1,13 @@
-package com.example.navigationcompose.ui.view.screen
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -17,6 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.navigationcompose.R
@@ -26,72 +27,61 @@ import com.example.navigationcompose.model.RencanaStudi
 @Composable
 fun HasilKrsView(
     mahasiswa: Mahasiswa,
-    rencanaStudi: RencanaStudi,
-    onBackToFormClicked: () -> Unit,
-    onFinishClicked: () -> Unit
-){
+    krs: RencanaStudi,
+    onBackButtonClicked: () -> Unit,
+    onFinishButtonClicked: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = colorResource(id = R.color.primary))
-            .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween
+            .background(color = colorResource(id = R.color.primary)),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Ringkasan Data",
-            fontSize = 24.sp,
-            color = Color.White,
-            modifier = Modifier.padding(8.dp)
+            text = "KARTU RENCANA STUDI ",
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            color = Color.White
         )
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Spacer(modifier = Modifier.size(12.dp))
-
-        Column (
+        Box(
             modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                color = Color.White,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .padding(16.dp)
-        ){
-            Text(text = "Informasi Mahasiswa", fontSize = 18.sp, color = Color.Black)
-            Spacer(modifier = Modifier.size(8.dp))
-            Text(text = "NIM: ${mahasiswa.nim}", fontSize = 14.sp, color = Color.Gray)
-            Text(text = "Nama: ${mahasiswa.nama}", fontSize = 14.sp, color = Color.Gray)
-            Text(text = "Email: ${mahasiswa.email}", fontSize = 14.sp, color = Color.Gray)
+                .fillMaxWidth()
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(15.dp)
+                )
+                .padding(16.dp)
+        ) {
+            Column {
+                Text(text = "Informasi Mahasiswa", fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = "NIM: " + mahasiswa.nim)
+                Text(text = "Nama: " + mahasiswa.nama)
+                Text(text = "Email: " + mahasiswa.email)
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(text = "Rencana Studi", fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = "Mata Kuliah: " + krs.namaMK)
+                Text(text = "Kelas: " + krs.kelas)
+            }
         }
 
-        Spacer(modifier = Modifier.size(12.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Column (
-            modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                color = Color.White,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .padding(16.dp))
-        {
-            Text(text = "Rencana Studi", fontSize = 18.sp, color = Color.Black)
-            Spacer(modifier = Modifier.size(8.dp))
-            Text(text = "Mata Kuliah: ${rencanaStudi.namaMK}", fontSize = 14.sp, color = Color.Gray)
-            Text(text = "Kelas: ${rencanaStudi.kelas}", fontSize = 14.sp, color = Color.Gray)
-        }
-
-        Spacer(modifier = Modifier.size(12.dp))
-
-        Row (
+        Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ){
-            Button(onClick = onBackToFormClicked) {
-                Text(text = "Kembali")
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Button(onClick = { onBackButtonClicked() }) {
+                Text(text = "Back")
             }
-            Button(onClick = onFinishClicked) {
-                Text(text = "Selesai")
+            Button(onClick = { onFinishButtonClicked() }) {
+                Text(text = "Finish")
             }
         }
-}}
-
+    }
+}
